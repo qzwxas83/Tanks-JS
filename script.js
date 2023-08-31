@@ -24,7 +24,7 @@ let gameZone = document.querySelector('.game-zone'),
         height: 77,
     }
     player2 = {
-        bullet2w: {
+        bullet2: {
             speed: 3.23
         },
         sprites: {
@@ -169,6 +169,45 @@ function intervals() {
      })
     }, fps);
 }
+ints.bullet2 = setInterval(() => {
+    let bullets2 = document.querySelectorAll('.bullet2');
+    bullets2.forEach((bullet2) => {
+        let direction2 = bullet2.getAttribute('direction2');
+
+        switch (direction2) {
+
+            case 'top':
+                if (bullet2.getBoundingClientRect().top < 0) {
+                    bullet2.parentNode.removeChild(bullet2);
+                } else {
+                    bullet2.style.top = bullet2.getBoundingClientRect().top - player2.bullet2.speed + 'px';
+                }
+                break;
+
+                case 'right':
+                if (bullet2.getBoundingClientRect().right > gameZone.getBoundingClientRect().width) {
+                    bullet2.parentNode.removeChild(bullet2);
+                } else {
+                    bullet2.style.left = bullet2.getBoundingClientRect().left + player2.bullet2.speed + 'px';
+                }
+                break;
+                case 'bottom':
+    if (bullet2.getBoundingClientRect().bottom > gameZone.getBoundingClientRect().height) {
+        bullet2.parentNode.removeChild(bullet2);
+    } else {
+        bullet2.style.top = bullet2.getBoundingClientRect().top + player2.bullet2.speed + 'px';
+    }
+    break;
+    case 'left':
+                if (bullet2.getBoundingClientRect().left < 0) {
+                    bullet2.parentNode.removeChild(bullet2);
+                } else {
+                    bullet2.style.left = bullet2.getBoundingClientRect().left - player2.bullet2.speed + 'px';
+                }
+                break;
+        }
+     })
+    }, fps);
 
 
 /*
@@ -192,7 +231,23 @@ function addBullet() {
     break;
    }
 
-   player.el = document.querySelector('.player');
+   player2.el = document.querySelector('.player2');
+   switch (player.side) {
+    case 1:
+        gameZone.innerHTML += `<div class="bullet2" direction2="top" style="left: ${(player2.x + (player2.width / 2)) - 6.5}px; top: ${player2.y - 16}px;"></div>`;
+    break;
+    case 2:
+        gameZone.innerHTML += `<div class="bullet2" direction2="right" style="left: ${(player2.x + player2.width) - 6.5}px; top: ${player2.y + 30}px;"></div>`;
+    break;
+    case 3:
+        gameZone.innerHTML += `<div class="bullet2" direction2="bottom" style="left: ${(player2.x + (player2.width / 2)) - 7}px; bottom: ${gameZone.getBoundingClientRect().height - player2.y - player2.height}px;"></div>`;
+    break;
+    case 4:
+        gameZone.innerHTML += `<div class="bullet2" direction2="left" style="left: ${(player2.x) - 6.5}px; top: ${player2.y + player2.height / 2 - 10}px;"></div>`;
+    break;
+   }
+
+   player2.el = document.querySelector('.player2');
 }
 
 /*

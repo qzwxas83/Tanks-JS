@@ -28,3 +28,11 @@
     background-image: url(./img/bullet.png);
     background-repeat: no-repeat;
 }
+
+.bullet2 {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-image: url(./img/bullet2.png);
+    background-repeat: no-repeat;
+}
