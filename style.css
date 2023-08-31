@@ -13,6 +13,14 @@
    background-repeat: no-repeat;
 }
 
+.player2 {
+    position: absolute;
+    width: 78px;
+    height: 77px;
+    background-image: url(./img/player2-bottom.png);
+    background-repeat: no-repeat;
+}
+
 .bullet {
     position: absolute;
     width: 16px;

@@ -24,28 +24,30 @@ let gameZone = document.querySelector('.game-zone'),
         height: 77,
     }
     player2 = {
-        bullet: {
+        bullet2w: {
             speed: 3.23
         },
         sprites: {
-        top: 'img/player-top.png',
-        bottom: 'img/player-bottom.png',
-        right: 'img/player-right.png',
-        left: 'img/player-left.png',
+        top: 'img/player2-top.png',
+        bottom: 'img/player2-bottom.png',
+        right: 'img/player2-right.png',
+        left: 'img/player2-left.png',
         },
         el: false,
-        x2: 712,
-        y2: 600,
-        step2: 2,
+        x: 500,
+        y: 30,
+        step: 2,
         run2: false,
-        side2: 1, //1 (top), 2 (right), 3 (bottom), 4 (left)
+        side: 1, //1 (top), 2 (right), 3 (bottom), 4 (left)
         width: 78,
         height: 77,
     }
 
 function init() {
-    gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`; 
+    gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`;
+    gameZone.innerHTML += `<div class="player2" style="left: ${player2.x}px; top: ${player2.y}px"></div>`; 
     player.el = document.querySelector('.player')
+    player2.el = document.querySelector('.player2')
 
 }
 
@@ -87,9 +89,46 @@ function intervals() {
                         player.el.style.left = `${player.x}px`;
                     }
                     break;
+                    
             }
         }
     }, fps);
+    ints.run = setInterval(() => {
+        if (player2.run2) {
+            switch (player2.side) {
+                case 1: // top
+                    if (player2.y > 0) {
+                        player2.el.style.backgroundImage = `url(${player2.sprites.top})`;
+                        player2.y -= player2.step;
+                        player2.el.style.top = `${player2.y}px`;
+                    }
+                    break;
+                case 3: // bottom
+                if (player2.y < gameZone.getBoundingClientRect().bottom - player2.height - 2) {
+                    player2.el.style.backgroundImage = `url(${player2.sprites.bottom})`;
+                    player2.y += player2.step;
+                    player2.el.style.top = `${player2.y}px`;
+                }
+                    break;
+                case 2: // right
+                    if (player2.x < gameZone.getBoundingClientRect().right - player2.width - 3) {
+                        player2.el.style.backgroundImage = `url(${player2.sprites.right})`;
+                        player2.x += player2.step;
+                        player2.el.style.left = `${player.x}px`;
+                    }
+                    break;
+                case 4: // left
+                    if (player2.x > 0) {
+                        player2.el.style.backgroundImage = `url(${player2.sprites.left})`;
+                        player2.x -= player2.step;
+                        player2.el.style.left = `${player2.x}px`;
+                    }
+                    break;
+                    
+            }
+        }
+    }, fps);
+    
     ints.bullet = setInterval(() => {
     let bullets = document.querySelectorAll('.bullet');
     bullets.forEach((bullet) => {
@@ -130,6 +169,7 @@ function intervals() {
      })
     }, fps);
 }
+
 
 /*
     Add Bullet
