@@ -23,6 +23,25 @@ let gameZone = document.querySelector('.game-zone'),
         width: 78,
         height: 77,
     }
+    player2 = {
+        bullet: {
+            speed: 3.23
+        },
+        sprites: {
+        top: 'img/player-top.png',
+        bottom: 'img/player-bottom.png',
+        right: 'img/player-right.png',
+        left: 'img/player-left.png',
+        },
+        el: false,
+        x2: 712,
+        y2: 600,
+        step2: 2,
+        run2: false,
+        side2: 1, //1 (top), 2 (right), 3 (bottom), 4 (left)
+        width: 78,
+        height: 77,
+    }
 
 function init() {
     gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`; 
@@ -94,10 +113,17 @@ function intervals() {
                 }
                 break;
                 case 'bottom':
-                if (bullet.getBoundingClientRect().bottom < gameZone.getBoundingClientRect().height) {
+    if (bullet.getBoundingClientRect().bottom > gameZone.getBoundingClientRect().height) {
+        bullet.parentNode.removeChild(bullet);
+    } else {
+        bullet.style.top = bullet.getBoundingClientRect().top + player.bullet.speed + 'px';
+    }
+    break;
+    case 'left':
+                if (bullet.getBoundingClientRect().left < 0) {
                     bullet.parentNode.removeChild(bullet);
                 } else {
-                    bullet.style.bottom = bullet.getBoundingClientRect().top + player.bullet.speed + 'px';
+                    bullet.style.left = bullet.getBoundingClientRect().left - player.bullet.speed + 'px';
                 }
                 break;
         }
@@ -119,7 +145,10 @@ function addBullet() {
         gameZone.innerHTML += `<div class="bullet" direction="right" style="left: ${(player.x + player.width) - 6.5}px; top: ${player.y + 30}px;"></div>`;
     break;
     case 3:
-        gameZone.innerHTML += `<div class="bullet" direction="bottom" style="left: ${(player.x + (player.width / 2)) - 7}px; top: ${player.y + player.height}px;"></div>`;
+        gameZone.innerHTML += `<div class="bullet" direction="bottom" style="left: ${(player.x + (player.width / 2)) - 7}px; bottom: ${gameZone.getBoundingClientRect().height - player.y - player.height}px;"></div>`;
+    break;
+    case 4:
+        gameZone.innerHTML += `<div class="bullet" direction="left" style="left: ${(player.x) - 6.5}px; top: ${player.y + player.height / 2 - 10}px;"></div>`;
     break;
    }
 
