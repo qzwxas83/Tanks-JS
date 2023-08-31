@@ -38,7 +38,7 @@ let gameZone = document.querySelector('.game-zone'),
         y: 30,
         step: 2,
         run2: false,
-        side: 1, //1 (top), 2 (right), 3 (bottom), 4 (left)
+        side: 3, //1 (top), 2 (right), 3 (bottom), 4 (left)
         width: 78,
         height: 77,
     }
