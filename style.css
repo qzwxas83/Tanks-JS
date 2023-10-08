@@ -20,3 +20,11 @@
     background-image: url(./img/bullet.png);
     background-repeat: no-repeat;
 }
+
+.enemy {
+    position: absolute;
+    width: 78px;
+    height: 77px;
+    background-image: url(./img/enemy-right.png);
+    background-repeat: no-repeat;
+}

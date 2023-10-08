@@ -5,9 +5,6 @@
 let gameZone = document.querySelector('.game-zone'),
     fps = 1000 / 120,
     player = {
-        bullet: {
-            speed: 3.23
-        },
         sprites: {
         top: 'img/player-top.png',
         bottom: 'img/player-bottom.png',
@@ -22,7 +19,14 @@ let gameZone = document.querySelector('.game-zone'),
         side: 1, //1 (top), 2 (right), 3 (bottom), 4 (left)
         width: 78,
         height: 77,
-    }
+    },
+    bulletSpeed = 3.23
+    ints = {
+        run: false,
+        bullet: false,
+        enemy: false
+    };
+
    
 function init() {
     gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`;
@@ -32,8 +36,6 @@ function init() {
 /*
     Intervals
 */
-
-let ints = {run: false};
 
 function intervals() {
     ints.run = setInterval(() => {
@@ -83,7 +85,7 @@ function intervals() {
                 if (bullet.getBoundingClientRect().top < 0) {
                     bullet.parentNode.removeChild(bullet);
                 } else {
-                    bullet.style.top = bullet.getBoundingClientRect().top - player.bullet.speed + 'px';
+                    bullet.style.top = bullet.getBoundingClientRect().top - bulletSpeed + 'px';
                 }
                 break;
 
@@ -91,26 +93,42 @@ function intervals() {
                 if (bullet.getBoundingClientRect().right > gameZone.getBoundingClientRect().width) {
                     bullet.parentNode.removeChild(bullet);
                 } else {
-                    bullet.style.left = bullet.getBoundingClientRect().left + player.bullet.speed + 'px';
+                    bullet.style.left = bullet.getBoundingClientRect().left + bulletSpeed + 'px';
                 }
                 break;
                 case 'bottom':
-    if (bullet.getBoundingClientRect().bottom > gameZone.getBoundingClientRect().height) {
-        bullet.parentNode.removeChild(bullet);
-    } else {
-        bullet.style.top = bullet.getBoundingClientRect().top + player.bullet.speed + 'px';
-    }
-    break;
-    case 'left':
+                if (bullet.getBoundingClientRect().bottom > gameZone.getBoundingClientRect().height) {
+                    bullet.parentNode.removeChild(bullet);
+                 } else {
+                    bullet.style.top = bullet.getBoundingClientRect().top + bulletSpeed + 'px';
+                }
+                break;
+                case 'left':
                 if (bullet.getBoundingClientRect().left < 0) {
                     bullet.parentNode.removeChild(bullet);
                 } else {
-                    bullet.style.left = bullet.getBoundingClientRect().left - player.bullet.speed + 'px';
+                    bullet.style.left = bullet.getBoundingClientRect().left - bulletSpeed + 'px';
                 }
                 break;
         }
      })
     }, fps);
+
+    ints.enemy = setInterval(() => {
+        let enemies = document.querySelectorAll('.enemy');
+        enemies.forEach((enemy) => {
+
+            
+            
+
+
+            if (enemy.getBoundingClientRect().right >= gameZone.getBoundingClientRect().width) {
+                enemy.style.left = '0px';
+            } else {
+                enemy.style.left = enemy.getBoundingClientRect().left + 1.21 + 'px';
+            }
+        })
+    }, fps)
 }
 
 
