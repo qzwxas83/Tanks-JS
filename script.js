@@ -125,14 +125,26 @@ function intervals() {
 
                 let direction = bullet.getAttribute('direction');
 
-                if (
-                    bullet.getBoundingClientRect().top < enemy.getBoundingClientRect().bottom &&
-                    bullet.getBoundingClientRect().right > enemy.getBoundingClientRect().left &&
-                    bullet.getBoundingClientRect().left < enemy.getBoundingClientRect().right
-                ) {
-                    enemy.parentNode.removeChild(enemy);
-                    bullet.parentNode.removeChild(bullet);
+                if (['top', 'left', 'right' ].includes(direction)) {
+                    if (
+                        bullet.getBoundingClientRect().top < enemy.getBoundingClientRect().bottom &&
+                        bullet.getBoundingClientRect().right > enemy.getBoundingClientRect().left &&
+                        bullet.getBoundingClientRect().left < enemy.getBoundingClientRect().right
+                    ) {
+                        enemy.parentNode.removeChild(enemy);
+                        bullet.parentNode.removeChild(bullet);
+                    }
+                } else {
+                    if (
+                        bullet.getBoundingClientRect().bottom > enemy.getBoundingClientRect().top &&
+                        bullet.getBoundingClientRect().right > enemy.getBoundingClientRect().left &&
+                        bullet.getBoundingClientRect().left < enemy.getBoundingClientRect().right
+                    ) {
+                        enemy.parentNode.removeChild(enemy);
+                        bullet.parentNode.removeChild(bullet);
+                    }
                 }
+                
             });
 
             if (enemy.getBoundingClientRect().right >= gameZone.getBoundingClientRect().width) {
