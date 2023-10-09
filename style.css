@@ -23,6 +23,7 @@
 
 .enemy {
     position: absolute;
+    top: 500px;
     width: 78px;
     height: 77px;
     background-image: url(./img/enemy-right.png);
