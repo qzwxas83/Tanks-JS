@@ -1,6 +1,18 @@
 # ***TANKS-JS***
 
-***TANKS-JS це гра танки написана на HTML, CSS та JAVASCRIPT! Ціль гри у тому щоб набрати найбільше очків і знищити найбільше цілей!***
+***TANKS-JS - це гра танки написана на HTML, CSS та JAVASCRIPT! Ціль гри у тому щоб набрати найбільше очків і знищити найбільше цілей!***
+____
+
+# ***Керування*** 
+
+|  ||
+|------------|------------|
+| ***Уперед***  | ***W***  |
+| ***Назад***  | ***S***  |
+| ***Вправо***  | ***D***  |
+| ***Вліво***  | ***A***  |
+| ***Стрільба***  | ***ЛКМ***
+____
 
 # ***Контакти***
 <a href="https://www.youtube.com/channel/UCCtRqIwouqSfzPwYMB7DJkw" target="_blank"><img src="https://img.shields.io/badge/youtube-black?style=for-the-badge&logo=youtube&logoColor=ff0000"/></a>
