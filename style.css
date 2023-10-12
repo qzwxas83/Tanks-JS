@@ -31,15 +31,26 @@
     background-repeat: no-repeat;
 }
 
-.info {
+.panel {
     position: absolute;
     left: 5px;
     top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.info {
     width: 250px;
+    height: 50px;
     padding: 20px;
     border: 5px solid #000;
     border-radius: 20px;
+    margin-right: 20px;
 }   
+
+.heart_img {
+    width: 100px;
+}
 
 span {
     text-transform: uppercase;

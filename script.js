@@ -6,23 +6,50 @@
         let rand = min - 0.5 + Math.random() * (max - min + 1);
         return Math.round(rand);
     }
+
+/*
+    Restart Game
+*/
+
+function  restart() {
+
+    clearInterval(ints.enemy);
+    clearInterval(ints.run);
+    clearInterval(ints.bullet);
+    clearInterval(ints.generateEnemy);
+
+
+    let enemies = document.querySelectorAll('.enemy');
+    enemies.forEach((enemy) => {
+        enemy.parentNode.removeChild(enemy);
+    });
+
+    player.el.parentNode.removeChild(player.el);
+    
+
+    game();
+}
     
     
 /*
     Init
 */
     
-    function init() {
-        gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`;
-        player.el = document.querySelector('.player');
-    }
+function init() {
+
+    player.x = gameZone.getBoundingClientRect().width / 2 - player.width;
+    player.y = gameZone.getBoundingClientRect().height - player.height;
+
+    gameZone.innerHTML += `<div class="player" style="left: ${player.x}px; top: ${player.y}px;"></div>`;
+    player.el = document.querySelector('.player');
+}
     
 /*
     Intervals
 */
     
-    function intervals() {
-        ints.run = setInterval(() => {
+function intervals() {
+    ints.run = setInterval(() => {
             if (player.run) {
                 switch (player.side) {
                     case 1: // Top
@@ -43,7 +70,7 @@
                             player.el.style.left = `${player.x}px`;
                         }
                         break;
-                    case 4: // Left=
+                    case 4: // Left
                         if (player.x > 0) {
                             player.x -= player.step;
                             player.el.style.left = `${player.x}px`;
@@ -51,9 +78,9 @@
                         break;
                 }
             }
-        }, fps);
+    }, fps);
 
-        ints.bullet = setInterval(() => {
+    ints.bullet = setInterval(() => {
             let bullets = document.querySelectorAll('.bullet');
             bullets.forEach((bullet) => {
                 let direction = bullet.getAttribute('direction');
@@ -98,6 +125,25 @@
         ints.enemy = setInterval(() => {
             let enemies = document.querySelectorAll('.enemy');
             enemies.forEach((enemy) => {
+
+                const playerPosTop = player.el.getBoundingClientRect().top,
+                    playerPosRight = player.el.getBoundingClientRect().right,
+                    playerPosBottom = player.el.getBoundingClientRect().bottom,
+                    playerPosLeft = player.el.getBoundingClientRect().left,
+                    enemyPosTop = enemy.getBoundingClientRect().top,
+                    enemyPosRight = enemy.getBoundingClientRect().right,
+                    enemyPosBottom = enemy.getBoundingClientRect().bottom,
+                    enemyPosLeft = enemy.getBoundingClientRect().left;
+
+                if (
+                    playerPosTop < enemyPosBottom &&
+                    playerPosBottom > enemyPosTop &&
+                    playerPosRight > enemyPosLeft &&
+                    playerPosLeft < enemyPosRight
+                ) {
+                    restart();
+                    //alert('Collision')
+                }
     
                 let bullets = document.querySelectorAll('.bullet');
     
@@ -196,7 +242,6 @@
  
             player.el = document.querySelector('.player');
         }, 1500);
-
     }
     
     /*
@@ -288,8 +333,8 @@
                 left: 'img/player-left.png',
             },
             el: false,
-            x: 712,
-            y: 600,
+            x: 500,
+            y: 400,
             step: 2,
             run: false,
             side: 1, //1 (top), 2 (right), 3 (bottom), 4 (left),
@@ -301,7 +346,7 @@
             run: false,
             bullet: false,
             enemy: false,
-            generateEnemy: false
+            generateEnemy: false,
         };
     
     game();
